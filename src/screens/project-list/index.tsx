@@ -13,7 +13,7 @@ export const ProjectListScreen = () => {
   });
 
   const [list, setList] = useState([]);
-  const debouncedParam = useDebounce(param, 2000);
+  const debouncedParam = useDebounce(param, 500);
   const [users, setUsers] = useState([]);
 
   /* param变化时项目请求列表的接口 */
