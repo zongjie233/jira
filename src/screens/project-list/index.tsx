@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import { cleanObject, useDebounce, useMount } from "utils";
 import * as qs from "qs";
+import { useHttp } from "utils/http";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export const ProjectListScreen = () => {
@@ -15,26 +16,16 @@ export const ProjectListScreen = () => {
   const [list, setList] = useState([]);
   const debouncedParam = useDebounce(param, 500);
   const [users, setUsers] = useState([]);
+  const client = useHttp();
 
   /* param变化时项目请求列表的接口 */
   useEffect(() => {
+    client("projects", { data: cleanObject(debouncedParam) }).then(setList);
     // fetch返回一个promise,所以用then处理
-    fetch(
-      `${apiUrl}/projects?${qs.stringify(cleanObject(debouncedParam))}`
-    ).then(async (response) => {
-      if (response.ok) {
-        setList(await response.json());
-      }
-    });
   }, [debouncedParam]);
 
   useMount(() => {
-    // fetch返回一个promise,所以用then处理
-    fetch(`${apiUrl}/users`).then(async (response) => {
-      if (response.ok) {
-        setUsers(await response.json());
-      }
-    });
+    client("users").then(setUsers);
   });
 
   return (
