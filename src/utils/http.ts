@@ -9,6 +9,7 @@ interface Config extends RequestInit {
   token?: string;
   data?: object;
 }
+// 封装异步请求
 export const http = async (
   endpoint: string,
   { data, token, headers, ...customConfig }: Config = {}
