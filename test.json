@@ -1,0 +1,11 @@
+{
+  "code": 0,
+  "status": 200,
+  "result": [
+    {
+      "timeDomainDataY": [10, 10, 10],
+      "timeDomainDataX": [1, 2, 3]
+    }
+  ],
+  "timestamp": 12345678
+}
